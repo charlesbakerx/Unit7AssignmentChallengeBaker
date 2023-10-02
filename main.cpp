@@ -1,7 +1,15 @@
 /*
 Charles Baker, Programming Fundamentals I: COSC-1436-57001
 IDE: Replit
-Summary: 
+Summary: A program that declares a GreenTea and Student class as well as functions using instantiated objects to demonstrate OOP principles.
+Note: Original code by Dr. Tyson McMillan
+*/
+
+/*
+3-28-2018, 10-24-2019 Dr. Tyson McMillan
+Working with class (object) Data Type and functions
+private attributes (variables)
+setter and getter MVC method
 */
 
 #include <iostream>
