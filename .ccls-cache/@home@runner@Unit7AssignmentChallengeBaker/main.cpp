@@ -108,8 +108,8 @@ void populateStudentWithDefaultData(Student &s) {
   s.setLetterGrade('F');
   s.setPreference(ut);
 
-  cout << "Start Data: ";
-  s.printTranscript();
+  // cout << "Start Data: ";
+  // s.printTranscript();
 }
 
 void fnClass(Student student) {
@@ -157,7 +157,121 @@ void fnClassPtr(Student* student) {
   student->printTranscript();
 }
 
+// Menu Function
+void printMenu() {
+  cout << "0: Print this menu." << endl;
+  cout << "1: Print undergraduate transcript" << endl;
+  cout << "2: Print graduate transcript" << endl;
+  cout << "3: Change undergraduate grade" << endl;
+  cout << "4: Change graduate grade" << endl;
+  cout << "5: Change undergraduate preference" << endl;
+  cout << "6: Change graduate preference" << endl;
+}
+
 int main() {
+  Student undergraduate;
+  populateStudentWithDefaultData(undergraduate);
+  GreenTea gt;
+  gt.setNameTea("Sencha");
+  gt.setDelicious(false);
+
+  Student graduate;
+  graduate.setId(1587);
+  graduate.setName("Cool Dude");
+  graduate.setLetterGrade('C');
+  graduate.setPreference(gt);
+  
+  bool quit = false;
+  int choice;
+  char grade;
+  string name;
+  char delicious;
+  printMenu();
+  while(!quit) {
+    cout << "Enter a choice: ";
+    cin >> choice;
+    switch (choice) {        
+      case 0:
+        printMenu();
+        break;
+      // Print undergraduate transcript
+      case 1:
+        undergraduate.printTranscript();
+        break;
+      // Print graduate transcript
+      case 2:
+        graduate.printTranscript();
+        break;
+      // Change undergraduate grade
+      case 3:
+        cout << "Enter the new letter grade: ";
+        cin >> grade;
+        undergraduate.setLetterGrade(toupper(grade));
+        break;
+      // Change graduate grade
+      case 4:
+        cout << "Enter the new letter grade: ";
+        cin >> grade;
+        graduate.setLetterGrade(toupper(grade));
+        break;
+      // Change undergraduate preference
+      case 5:
+        cout << "Enter the name of the green tea: ";
+        /*
+         This had me scratching my head for a while.
+         Had to do some googling to figure out that cin >> var only reads until whitespace.
+         The result was an infinite loop that took a little bit to figure out.
+        */
+        // We clear the input buffer
+        cin.ignore();
+        // We take the whole line and store it in name
+        getline(cin, name);
+        gt.setNameTea(name);
+        while(true) {
+          cout << "Is it delicious (y/n)? ";
+          cin >> delicious;
+          // If the answer isn't y/Y or n/N we repeat
+          if (delicious != 'y' && delicious != 'Y' && delicious != 'n' && delicious != 'N') {
+            cout << "Incorrect value, please enter y for yes or n for no!" << endl;
+            continue;
+          }
+          // We got here because it was y/Y or n/N so we break out
+          break;
+        }
+        // If delicious is y/Y we setDelicious to true else false
+        gt.setDelicious(delicious == 'y' || delicious == 'Y' ? true : false);
+        undergraduate.setPreference(gt);
+        break;
+      // Change graduate prefereance
+      case 6:
+        cout << "Enter the name of the green tea: ";
+        // We clear the input buffer
+        cin.ignore();
+        // We take the whole line and store it in name
+        getline(cin, name);
+        gt.setNameTea(name);
+        while(true) {
+          cout << "Is it delicious (y/n)? ";
+          cin >> delicious;
+          // If the answer isn't y/Y or n/N we repeat
+          if (delicious != 'y' && delicious != 'Y' && delicious != 'n' && delicious != 'N') {
+            cout << "Incorrect value, please enter y for yes or n for no!" << endl;
+            continue;
+          }
+          // We got here because it was y/Y or n/N so we break out
+          break;
+        }
+        // If delicious is y/Y we setDelicious to true else false
+        gt.setDelicious(delicious == 'y' || delicious == 'Y' ? true : false);
+        graduate.setPreference(gt);
+        break;
+      default:
+        cout << "Not a valid choice!" << endl;
+        printMenu();
+    }
+  }
+/* Testing code from main assignment
+    
   cout << "\nPrint Undergraduate Student" << endl;
   // instances of the Student class
   Student undergraduate;
@@ -194,4 +308,5 @@ int main() {
   fnClassRef(graduate);
   fnClassPtr(&undergraduate);
   fnClassPtr(&graduate);
+*/
 }
